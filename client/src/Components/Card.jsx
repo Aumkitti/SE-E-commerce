@@ -42,7 +42,7 @@ const Card = ({ item }) => {
           <h5 className="font-semibold">
             {price} <span className="text-sm text-red"> ฿ </span>
           </h5>
-          <button className="btn bg-red text-white">Add ro cart</button>
+          <button className="btn bg-red text-white">Add to cart</button>
         </div>
       </div>
     </div>
