@@ -47,7 +47,7 @@ const NavBar = () => {
     </>
   );
   return (
-    <header className="max-w-screen-1xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out">
+    <header className="max-w-screen-1xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out navbar z-50">
       <div className="navbar xl:px">
         <div className="navbar bg-base-100">
           <div className="navbar-start">

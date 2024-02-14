@@ -4,6 +4,9 @@ const Footer = () => {
   return (
     <footer className="section-container footer p-10 bg-red text-white">
       <nav>
+        <img src="/logo.png" alt="" className="h-40 pr-1 w-auto " />
+      </nav>
+      <nav>
         <h6 className="footer-title">Services</h6>
         <a className="link link-hover">Branding</a>
         <a className="link link-hover">Design</a>
