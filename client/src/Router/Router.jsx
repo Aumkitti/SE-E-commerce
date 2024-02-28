@@ -5,7 +5,8 @@ import Home from "../Pages/home/Home";
 import ProductList from "../Pages/Shop/ProductList";
 import SignUp from "../Components/SignUp";
 import SignIn from "../Components/SignIn";
-
+import UpdatePofile from "../Pages/dashboard/updateProfile";
+import PrivateRouter from "../PrivateRouter/PrivateRouter";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/shop",
-        element: <ProductList />,
+        element: (
+          <PrivateRouter>
+            <ProductList />
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/update-profile",
+        element: <UpdatePofile />,
       },
     ],
   },
@@ -27,7 +36,7 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: "/singip",
+    path: "/singin",
     element: <SignIn />,
   },
 ]);

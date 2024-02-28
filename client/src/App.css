@@ -4,11 +4,14 @@ body {
 }
 
 nav {
-    z-index: 10001;
+    z-index: 60;
 }
 
 .heart {
-    z-index: 5000;
+    z-index: 40;
+}
+.drawer {
+    z-index: 100;
 }
 
 .subtitle{

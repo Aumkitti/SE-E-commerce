@@ -1,22 +1,28 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
 import { AuthContext } from "../context/AuthProvider";
 
 const Modal = ({ name }) => {
   const { login, signUpWhiteGoogle } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
     login(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        //console.log(user);
+        document.getElementById(name).close();
+          navigate(from, { replace: true });
         alert("Login Successful");
       })
       .catch((error) => {
