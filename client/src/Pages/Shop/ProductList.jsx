@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 import Card from "../../Components/Card";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -16,7 +13,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/product.json");
+        const response = await fetch("http://localhost:5000/products");
         const data = await response.json();
         setProducts(data);
         setFilteredItems(data);
