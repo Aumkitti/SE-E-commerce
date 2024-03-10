@@ -24,16 +24,17 @@ const Card = ({ item }) => {
         price: item.price,
         quantity: 1,
       };
-      Swal.fire({
+      axios
+        .post("http://localhost:5000/carts", cartItem)
+        .then(
+          Swal.fire({
         title: "Product addes on the cart",
         position: "center",
         icon: "success",
         showConfirmButton: false,
         timer: "2000",
-      });
-      axios
-        .post("http://localhost:5000/carts", cartItem)
-        .then(alert("Successfully"));
+      })
+        );
     } else {
       Swal.fire({
         title: "Plaease login to add an item to cart!",
