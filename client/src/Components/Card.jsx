@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Card = ({ item }) => {
   const { _id, name, image, price, description } = item;
-  const { user } = useContext(AuthContext);
+  const { user, cartTrigger, setCartTrigger } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [isHeartFilled, setIsHeartFilled] = useState(false);
@@ -24,17 +24,16 @@ const Card = ({ item }) => {
         price: item.price,
         quantity: 1,
       };
-      axios
-        .post("http://localhost:5000/carts", cartItem)
-        .then(
-          Swal.fire({
-        title: "Product addes on the cart",
-        position: "center",
-        icon: "success",
-        showConfirmButton: false,
-        timer: "2000",
-      })
-        );
+      axios.post("http://localhost:5000/carts", cartItem).then(() => {
+        Swal.fire({
+          title: "Product addes on the cart",
+          position: "center",
+          icon: "success",
+          showConfirmButton: false,
+          timer: "2000",
+        });
+        setCartTrigger(cartTrigger + 1);
+      });
     } else {
       Swal.fire({
         title: "Plaease login to add an item to cart!",
