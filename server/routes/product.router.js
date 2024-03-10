@@ -14,7 +14,7 @@
  *              name:
  *                  type: string
  *                  description: The name of the product
- *              prict:
+ *              price:
  *                  type: number
  *                  description: The price of the product
  *              description:
@@ -223,11 +223,10 @@ router.delete("/:id", async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
-    res.json(product)
+    res.json(product);
   } catch (error) {
     res.status(500).json({ error: "Failed to delete Product data" });
   }
 });
-
 
 module.exports = router;

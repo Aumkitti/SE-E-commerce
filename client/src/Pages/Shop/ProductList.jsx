@@ -61,7 +61,8 @@ const ProductList = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem); //index คือดัชณี เป็นตัวชี้ตำแหน่ง
+  //slice ส่ง start และ end ให้ และจะไม่เอา เอเลเม้นท์สุดท้ายที่ส่งไป
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -130,6 +131,7 @@ const ProductList = () => {
           <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 section-container">
             {currentItems.map((item, index) => (
               <Card key={index} item={item} />
+              // เรียกใช้ callback(ฟังก์ชั่นที่ไม่มีชื่อ) และ รีเทริน array card ออกมาโดยตรง
             ))}
           </div>
         </div>

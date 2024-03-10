@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const productRouter = require("./routes/product.router");
+const cartRouter = require("./routes/cart.router");
 const swaggerDefinition = {
   openapi: "3.1.0",
   info: {
@@ -26,6 +27,10 @@ const swaggerDefinition = {
       url: "https://github.com",
       email: "Kittipong@hotmail.com",
     },
+  },
+  externalDocs: {
+    description: "Download Swagger.json",
+    url: "/swagger.json",
   },
   servers: [
     {
@@ -53,6 +58,10 @@ const CLIENT_URL = process.env.CLIENT_URL;
 app.use(cors({ credentials: true, origin: CLIENT_URL }));
 app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.get("/swagger.json", (req, res) => {
+  res.header("Content-Type", "application/json");
+  res.send(swaggerSpec);
+});
 
 //database connection
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -63,6 +72,8 @@ app.get("/", (req, res) => {
 });
 //Add Router
 app.use("/products", productRouter);
+app.use("/carts", cartRouter);
+
 //RunServer
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () => {

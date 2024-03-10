@@ -1,12 +1,57 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { AuthContext } from "../context/AuthProvider";
+import axios from "axios";
 
 const Card = ({ item }) => {
   const { _id, name, image, price, description } = item;
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isHeartFilled, setIsHeartFilled] = useState(false);
   const handleHeartClick = () => {
     setIsHeartFilled(!isHeartFilled);
   };
+
+  const handleAddtoCart = (item) => {
+    if (user && user.email) {
+      const cartItem = {
+        productId: item._id,
+        name: item.name,
+        email: user.email,
+        image: item.image,
+        price: item.price,
+        quantity: 1,
+      };
+      Swal.fire({
+        title: "Product addes on the cart",
+        position: "center",
+        icon: "success",
+        showConfirmButton: false,
+        timer: "2000",
+      });
+      axios
+        .post("http://localhost:5000/carts", cartItem)
+        .then(alert("Successfully"));
+    } else {
+      Swal.fire({
+        title: "Plaease login to add an item to cart!",
+        position: "center",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        showConfirmButton: true,
+        confirmButtonText: "Login now",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login", { state: { from: location } });
+        }
+      });
+    }
+  };
+
   return (
     <div className="card shadow-xl relative mr-5 md:my-5 ">
       <div
@@ -42,7 +87,14 @@ const Card = ({ item }) => {
           <h5 className="font-semibold">
             {price} <span className="text-sm text-red"> ฿ </span>
           </h5>
-          <button className="btn bg-red text-white">Add to cart</button>
+          <button
+            className="btn bg-red text-white"
+            onClick={() => {
+              handleAddtoCart(item);
+            }}
+          >
+            Add to cart
+          </button>
         </div>
       </div>
     </div>
