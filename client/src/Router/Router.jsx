@@ -7,7 +7,7 @@ import SignUp from "../Components/SignUp";
 import SignIn from "../Components/SignIn";
 import UpdatePofile from "../Pages/dashboard/updateProfile";
 import PrivateRouter from "../PrivateRouter/PrivateRouter";
-import Cart from "../Components/Cart";
+import Cart from "../Pages/Shop/Cart";
 
 const router = createBrowserRouter([
   {
