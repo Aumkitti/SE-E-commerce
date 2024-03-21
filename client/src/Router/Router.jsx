@@ -8,6 +8,9 @@ import SignIn from "../Components/SignIn";
 import UpdatePofile from "../Pages/dashboard/updateProfile";
 import PrivateRouter from "../PrivateRouter/PrivateRouter";
 import Cart from "../Pages/Shop/Cart";
+import DashboardLayout from "../Layout/DashboardLayout";
+import User from "../Pages/dashboard/admin/User";
+import Dashboard from "../Pages/dashboard/admin/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +38,13 @@ const router = createBrowserRouter([
         element: <UpdatePofile />,
       },
     ],
+  },
+  {
+    path: "dashboard",
+    element: <DashboardLayout />,
+    children: [{ path: "users", element: <User /> },
+  {path:"",
+element:<Dashboard/>}],
   },
   {
     path: "/singup",

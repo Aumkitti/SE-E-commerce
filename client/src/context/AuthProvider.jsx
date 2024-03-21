@@ -11,8 +11,10 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
+import useAxiosPublic from "../hook/useAxiosPublic";
 
 const AuthProvider = ({ children }) => {
+  const axiosPublic = useAxiosPublic();
   // Initialize Firebase Authentication and get a reference to the service
   const auth = getAuth(app);
   const [user, setUser] = useState(null);
@@ -58,13 +60,20 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        setUser(currentUser);
+        const userInfo = {email:currentUser.email};
+        axiosPublic.post("/jwt",userInfo).then((response)=>{
+          if(response.data.token){
+            localStorage.setItem("access_token",response.data.token);
+          }
+        })
+      }else{
+        localStorage.removeItem("access_token");
       }
     });
     return () => {
       return unsubscribe();
     };
-  }, [auth]);
+  }, [axiosPublic]);
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

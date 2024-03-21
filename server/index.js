@@ -6,6 +6,8 @@ const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const productRouter = require("./routes/product.router");
 const cartRouter = require("./routes/cart.router");
+const userRouter = require("./routes/user.router");
+const jwt = require("jsonwebtoken");
 const swaggerDefinition = {
   openapi: "3.1.0",
   info: {
@@ -58,6 +60,8 @@ const CLIENT_URL = process.env.CLIENT_URL;
 app.use(cors({ credentials: true, origin: CLIENT_URL }));
 app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
 app.get("/swagger.json", (req, res) => {
   res.header("Content-Type", "application/json");
   res.send(swaggerSpec);
@@ -73,6 +77,17 @@ app.get("/", (req, res) => {
 //Add Router
 app.use("/products", productRouter);
 app.use("/carts", cartRouter);
+app.use("/users", userRouter);
+
+app.post("/jwt", async (req, res) => {
+  //create and return JWT
+  //email,name
+  const user = req.body;
+  const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "1h",
+  });
+  res.send({ token });
+});
 
 //RunServer
 const PORT = process.env.PORT;
