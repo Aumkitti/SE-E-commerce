@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const UserModel = require("../models/User.model");
-const verifyToken = require("../middlewares/verifyToken")
-const verifyAdmin = require("../middlewares/verifyAdmin")
+const verifyToken = require("../middlewares/verifyToken");
+const verifyAdmin = require("../middlewares/verifyAdmin");
 
 router.get("/", async (req, res) => {
   try {
@@ -104,8 +104,8 @@ router.patch("/user/:id", verifyToken, verifyAdmin, async (req, res) => {
         runValidators: true,
       }
     );
-    if(!updatedUser){
-        return res.status(404).json({ message: "User not found" });
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
     }
     res.json(updatedUser);
   } catch (error) {
@@ -135,7 +135,5 @@ router.patch("/admin/:id", verifyToken, verifyAdmin, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
-
 
 module.exports = router;

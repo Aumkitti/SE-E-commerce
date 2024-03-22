@@ -3,9 +3,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
 import { AuthContext } from "../context/AuthProvider";
+import useAxiosPublic from "../hook/useAxiosPublic";
+import useAuth from "../hook/useAuth";
+import Swal from "sweetalert2";
 
-const Modal = ({ name }) => {
-  const { login, signUpWhiteGoogle } = useContext(AuthContext);
+const Modal = ({ nameModal }) => {
+  const { login, signUpWhiteGoogle } = useAuth();
+  const axiosPublic = useAxiosPublic();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location?.state?.from?.pathname || "/";
@@ -21,12 +25,20 @@ const Modal = ({ name }) => {
       .then((result) => {
         const user = result.user;
         //console.log(user);
-        document.getElementById(name).close();
-          navigate(from, { replace: true });
-        alert("Login Successful");
+        Swal.fire({
+          title: "Login Successfully",
+          icon: "success",
+          timer: 1500,
+        });
+        document.getElementById(nameModal).close();
+        navigate(from, { replace: true });
       })
       .catch((error) => {
-        console.log(error);
+        document.getElementById(nameModal).close();
+        Swal.fire({
+          title: "Can not sign in please try again",
+          icon: "error",
+        });
       });
   };
 
@@ -34,8 +46,22 @@ const Modal = ({ name }) => {
     signUpWhiteGoogle()
       .then((result) => {
         const user = result.user;
-        console.log(user);
-        alert("Google SigUp Successfully");
+        const userInfo = {
+          name: result.user?.displayName,
+          email: result.email,
+          photoURL: result.user?.photoURL,
+        };
+        axiosPublic.post("/users", userInfo).then((response) => {
+          //console.log(response);
+          Swal.fire({
+            title: "Google sing Up Successfully",
+            icon: "success",
+            timer: 1500,
+          });
+        });
+        //alert("Account creted Successfilly");
+        navigate(from, { replace: true });
+        //alert("Google SigUp Successfully");
         document.getElementById("login").close();
       })
       .catch((error) => {
@@ -46,7 +72,7 @@ const Modal = ({ name }) => {
   return (
     <div>
       <dialog
-        id={name}
+        id={nameModal}
         className="modal modal-bottom sm:modal-middle text-black"
       >
         <div className="modal-box">
@@ -97,9 +123,9 @@ const Modal = ({ name }) => {
                 </Link>
               </p>
               <button
-                htmlFor={name}
+                htmlFor={nameModal}
                 className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                onClick={() => document.getElementById(name).close()}
+                onClick={() => document.getElementById(nameModal).close()}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -8,9 +8,10 @@ import { FaEdit } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 import { Outlet } from "react-router-dom";
+import useAdmin from "../hook/useAdmin";
 
-const isAdmin = true;
 const DashboardLayout = () => {
+  const [isAdmin, isAdminLoading] = useAdmin();
   return (
     <div>
       {isAdmin ? (
@@ -32,7 +33,6 @@ const DashboardLayout = () => {
               </button>
             </div>
             <div className="mt-5 md-mt2 mx-4">
-              Content
               <Outlet />
             </div>
           </div>
@@ -47,7 +47,9 @@ const DashboardLayout = () => {
               <li>
                 <Link to="/dashboard" className="flex justify-start mb-3">
                   <img src={logo} className="w-20" />
-                  <div className="badge badge-privary bg-purple-700 text-black">Admin</div>
+                  <div className="badge badge-privary bg-purple-700 text-black">
+                    Admin
+                  </div>
                 </Link>
               </li>
               <hr />
