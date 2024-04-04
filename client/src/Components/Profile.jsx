@@ -33,7 +33,7 @@ const Profile = ({ user }) => {
               ) : (
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src="https://th.bing.com/th/id/R.190ec45e85a736714a81a796bd48a8ad?rik=UuYYrZ5Q1RLm9A&pid=ImgRaw&r=0"
+                  src="https://static.vecteezy.com/system/resources/previews/019/879/186/large_2x/user-icon-on-transparent-background-free-png.png"
                 />
               )}
             </div>

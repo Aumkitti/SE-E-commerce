@@ -4,10 +4,9 @@ import { MdSave } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import useAxiosPbulic from "../../../hook/useAxiosPublic";
 
-// การ import และการใช้งาน hook และ component ต่างๆ
 
 const AddProduct = () => {
-  // การใช้ hook useState เพื่อเก็บค่าสถานะของสินค้าที่กำลังจะเพิ่ม
+  // ใช้ hook useState เพื่อเก็บค่าสถานะของสินค้าที่กำลังจะเพิ่ม
   const [product, setProduct] = useState({
     name: "",
     price: "",
@@ -16,13 +15,13 @@ const AddProduct = () => {
     category: "",
   });
 
-  // การใช้ hook useState เพื่อเก็บค่าของหมวดหมู่สินค้า
+  // ใช้ hook useState เพื่อเก็บค่าของหมวดหมู่สินค้า
   const [categories, setCategories] = useState([]);
 
-  // การใช้ hook useNavigate สำหรับการเปลี่ยนเส้นทางใน React Router
+  // ใช้ hook useNavigate สำหรับการเปลี่ยนเส้นทางใน React Router
   const navigate = useNavigate();
 
-  // การใช้ hook useEffect เพื่อโหลดข้อมูลหมวดหมู่สินค้าเมื่อคอมโพเนนต์นี้ถูกโหลดเข้ามา
+  // ใช้ hook useEffect เพื่อโหลดข้อมูลหมวดหมู่สินค้าเมื่อคอมโพเนนต์นี้ถูกโหลดเข้ามา
   useEffect(() => {
     const fetchData = async () => {
       try {
