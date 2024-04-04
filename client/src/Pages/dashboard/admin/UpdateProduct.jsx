@@ -6,7 +6,7 @@ import useAxiosPublic from "../../../hook/useAxiosPublic";
 
 const UpdateProduct = () => {
   const axiosPublic = useAxiosPublic();
-  const { id } = useParams();
+  const { id } = useParams(); // ดึงพารามิเตอร์ id จาก URL
   const [items, setItems] = useState({
     name: "",
     price: "",
@@ -17,6 +17,7 @@ const UpdateProduct = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // ใช้ useEffect เพื่อโหลดข้อมูลสินค้าที่ต้องการแก้ไข
     const fetchData = async () => {
       try {
         const res = await axiosPublic.get(`/products/${id}`);
@@ -26,28 +27,30 @@ const UpdateProduct = () => {
       }
     };
     fetchData();
-  }, [id]);
+  }, [id]); // เมื่อ id เปลี่ยนแปลงจะทำการโหลดข้อมูลใหม่
 
   const handleChange = (e) => {
+    // ฟังก์ชันสำหรับการเปลี่ยนแปลงข้อมูลในฟอร์ม
     setItems((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleUpdateItem = async (e) => {
+    // ฟังก์ชันสำหรับการอัปเดตข้อมูลสินค้า
     e.preventDefault();
     try {
-      await axiosPublic.put(`/products/${id}`, items);
-      console.log("Update ProductData:", items);
+      await axiosPublic.put(`/products/${id}`, items); // ส่งข้อมูลสินค้าที่แก้ไขไปยังเซิร์ฟเวอร์
       Toast.fire({
         icon: "success",
         title: "Update Product Item Successfully",
-      });
-      navigate("/dashboard/product");
+      }); // แสดง Toast แจ้งเตือนการอัปเดตสำเร็จ
+      navigate("/dashboard/product"); // เมื่ออัปเดตสำเร็จ ให้เปลี่ยนเส้นทางไปยังหน้าสินค้า
     } catch (error) {
-      console.log(error);
+      console.error("Error updating product:", error);
     }
   };
-  const Toast = 
-  Swal.mixin({
+
+  // กำหนด Toast สำหรับแสดงผลการอัปเดต
+  const Toast = Swal.mixin({
     toast: true,
     position: "top-center",
     showConfirmButton: false,
@@ -61,9 +64,11 @@ const UpdateProduct = () => {
 
   return (
     <div>
+      {/* หัวข้อหน้า */}
       <p className="text-4xl font-semibold mb-8 mx-80 ml-10">
         Update <span className="text-red">Menu Item</span>
       </p>
+      {/* ฟอร์มแก้ไขข้อมูลสินค้า */}
       <div className="px-2 space-y-8">
         <div className="space-y-2 mb-14">
           <p>Product name*</p>
@@ -122,6 +127,7 @@ const UpdateProduct = () => {
           />
         </div>
       </div>
+      {/* ปุ่มอัปเดตสินค้า */}
       <button
         className="btn bg-red text-white mx-2 mt-4"
         onClick={handleUpdateItem}

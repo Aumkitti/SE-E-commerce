@@ -11,6 +11,7 @@ const Productitems = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
+  // ใช้ useEffect เพื่อโหลดรายการสินค้าเมื่อคอมโพเนนต์ถูกโหลดเข้ามา
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
@@ -24,10 +25,12 @@ const Productitems = () => {
     fetchCartItems();
   }, []);
 
+  // คำนวณหน้าที่แสดงข้อมูล
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
 
+  // ฟังก์ชันสำหรับเปลี่ยนหน้า
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
@@ -35,6 +38,8 @@ const Productitems = () => {
   const handlePrevPage = () => {
     setCurrentPage(currentPage - 1);
   };
+
+  // ฟังก์ชันสำหรับลบสินค้า
   const handleDelete = (_id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -57,7 +62,6 @@ const Productitems = () => {
               confirmButtonText: "OK",
               confirmButtonColor: "#3085d6",
             });
-            refetch();
           }
         } catch (error) {
           console.error("Error deleting item:", error);
@@ -68,15 +72,17 @@ const Productitems = () => {
 
   return (
     <div>
+      {/* หัวข้อหน้า */}
       <div>
         <p className="text-4xl font-semibold mb-8 mx-80">
           Manage All <span className="text-red">Product Items!</span>
         </p>
       </div>
       <div>
+        {/* ตารางแสดงข้อมูลสินค้า */}
         <div className="overflow-x-auto">
           <table className="table table-zebra ">
-            {/* head */}
+            {/* ส่วนหัวตาราง */}
             <thead>
               <tr>
                 <th>
@@ -90,6 +96,7 @@ const Productitems = () => {
               </tr>
             </thead>
             <tbody>
+              {/* แสดงข้อมูลสินค้าในแต่ละแถว */}
               {currentItems.map((item, index) => {
                 return (
                   <tr key={index}>
@@ -109,6 +116,7 @@ const Productitems = () => {
                     <td>{item.name}</td>
                     <td>฿{item.price}</td>
                     <th className="text-center ">
+                      {/* ปุ่มแก้ไขสินค้า */}
                       <Link
                         to={`/dashboard/updateproduct/${item._id}`}
                         className="btn btn-ghost"
@@ -117,6 +125,7 @@ const Productitems = () => {
                       </Link>
                     </th>
                     <th className="text-center ">
+                      {/* ปุ่มลบสินค้า */}
                       <button
                         className="btn btn-ghost"
                         onClick={() => handleDelete(item._id)}
@@ -130,6 +139,7 @@ const Productitems = () => {
             </tbody>
           </table>
         </div>
+        {/* แสดงปุ่มเปลี่ยนหน้า */}
         <div className="pagination mt-4 flex justify-center items-center space-x-2">
           <button
             className="btn bg-red text-white"
@@ -140,13 +150,13 @@ const Productitems = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="3"
+              strokeWidth="3"
               stroke="currentColor"
               className="w-5 h-5"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M15.75 19.5 8.25 12l7.5-7.5"
               />
             </svg>
@@ -162,13 +172,13 @@ const Productitems = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="3"
+              strokeWidth="3"
               stroke="currentColor"
               className="w-5 h-5"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="m8.25 4.5 7.5 7.5-7.5 7.5"
               />
             </svg>
