@@ -11,6 +11,9 @@ import Cart from "../Pages/Shop/Cart";
 import DashboardLayout from "../Layout/DashboardLayout";
 import User from "../Pages/dashboard/admin/User";
 import Dashboard from "../Pages/dashboard/admin/Dashboard";
+import AddProduct from "../Pages/dashboard/admin/AddProduct";
+import Productitems from "../Pages/dashboard/admin/Productitems";
+import UpdateProduct from "../Pages/dashboard/admin/UpdateProduct";
 
 const router = createBrowserRouter([
   {
@@ -41,16 +44,19 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRouter>
+        <DashboardLayout />
+      </PrivateRouter>
+    ),
     children: [
       { path: "users", element: <User /> },
+      { path: "addproduct", element: <AddProduct /> },
+      { path: "product", element: <Productitems /> },
+      { path: "updateproduct/:id", element: <UpdateProduct /> },
       {
         path: "",
-        element: (
-          <PrivateRouter>
-            <Dashboard />
-          </PrivateRouter>
-        ),
+        element: <Dashboard />,
       },
     ],
   },

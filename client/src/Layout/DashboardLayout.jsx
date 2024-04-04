@@ -6,6 +6,10 @@ import { FaRegClipboard } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
+import { MdHome } from "react-icons/md";
+import { MdProductionQuantityLimits } from "react-icons/md";
+import { FaLocationArrow } from "react-icons/fa";
+import { MdContactSupport } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
 import { Outlet } from "react-router-dom";
 import useAdmin from "../hook/useAdmin";
@@ -66,13 +70,13 @@ const DashboardLayout = () => {
                 </Link>
               </li>
               <li>
-                <Link>
+                <Link to="/dashboard/addproduct">
                   <IoMdAdd />
                   Add Product
                 </Link>
               </li>
               <li>
-                <Link>
+                <Link to="/dashboard/product">
                   <FaEdit />
                   Manage Item
                 </Link>
@@ -81,6 +85,31 @@ const DashboardLayout = () => {
                 <Link to="/dashboard/users">
                   <FaUserEdit />
                   All users
+                </Link>
+              </li>
+              <hr />
+              <li>
+                <Link>
+                  <MdHome />
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link>
+                  <MdProductionQuantityLimits />
+                  Product
+                </Link>
+              </li>
+              <li>
+                <Link>
+                  <FaLocationArrow />
+                  Order Tracking
+                </Link>
+              </li>
+              <li>
+                <Link>
+                  <MdContactSupport />
+                  Customer Support
                 </Link>
               </li>
             </ul>
