@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { MdSave } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import useAxiosPbulic from "../../../hook/useAxiosPublic";
-
+import useAxiosPublic from "../../../hook/useAxiosPublic";
 
 const AddProduct = () => {
+  const axiosPublic = useAxiosPublic();
   // ใช้ hook useState เพื่อเก็บค่าสถานะของสินค้าที่กำลังจะเพิ่ม
   const [product, setProduct] = useState({
     name: "",

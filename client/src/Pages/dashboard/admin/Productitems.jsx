@@ -3,10 +3,10 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiSolidEdit } from "react-icons/bi";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import useAxiosPbulic from "../../../hook/useAxiosPublic";
+import useAxiosPublic from "../../../hook/useAxiosPublic";
 
 const Productitems = () => {
-  const axiosPublic = useAxiosPbulic();
+  const axiosPublic = useAxiosPublic();
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
